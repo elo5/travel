@@ -39,11 +39,40 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void save(User user) {
         //1.定义sql
-        String sql = "insert into tab_user(username, password, name, birthday, sex, telephone,email) values(?,?,?,?,?,?,?)";
-
+        String sql = "insert into tab_user(username, password, name, birthday, sex, telephone,email,status,code) values(?,?,?,?,?,?,?,?,?)";
         //2. 执行sql
-       int result = template.update(sql,user.getUsername(), user.getPassword(), user.getName(), user.getBirthday(), user.getSex(), user.getTelephone(), user.getEmail());
-
+       int result = template.update(sql,user.getUsername(), user.getPassword(), user.getName(), user.getBirthday(), user.getSex(), user.getTelephone(), user.getEmail(),user.getStatus(),user.getCode());
        System.out.println("save result:  " + result);
+    }
+
+    /**
+     * 根据用户激活码查询用户信息
+     *
+     * @param code
+     * @return
+     */
+    @Override
+    public User findByCode(String code) {
+        User user = null;
+        try {
+            //1.定义sql
+            String sql = "select * from tab_user where code = ?";
+            //2. 执行sql
+            user = template.queryForObject(sql,new BeanPropertyRowMapper<User>(User.class),code);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    /**
+     * 更新用户激活状态
+     *
+     * @param user
+     */
+    @Override
+    public void updateStatus(User user) {
+        String sql = "update tab_user set status = 'Y' wehre uid = ? ";
+        template.update(sql,user.getUid());
     }
 }

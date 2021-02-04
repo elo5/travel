@@ -16,4 +16,18 @@ public interface UserDao {
      */
     void save(User user);
 
+    /**
+     * 根据用户激活码查询用户信息
+     * @param code
+     * @return
+     */
+    User findByCode(String code);
+
+
+    /**
+     * 更新用户激活状态
+     * @param user
+     */
+    void updateStatus(User user);
+
 }
