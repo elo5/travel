@@ -126,7 +126,7 @@
 					if( checkUsername() && checkPassword() && checkEmail() && checkName() && checkTelephone() && checkBirthday() && checkCheck()){
 
 						// 校验通过,发送ajax请求，提交表单的数据
-						$.post("user/registUserServlet", $(this).serialize(), function (data) {
+						$.post("registUserServlet", $(this).serialize(), function (data) {
 							// 处理服务器响应的数据  data  {flag:true,errorMsg:"注册失败"}
 							if (data.flag) {
 								// 注册成功，跳转到register_ok.html页面
@@ -166,7 +166,7 @@
     				<p>USER REGISTER</p>
     			</div>
     			<div class="rg_form_center">
-					
+					<div id="errorMsg" style="color: red; text-align: center;"></div>
 					<!--注册表单-->
     				<form id="registerForm">
 						<!--提交处理请求的标识符-->
@@ -177,7 +177,7 @@
     								<label for="username">用户名</label>
     							</td>
     							<td class="td_right">
-    								<input type="text" id="username" name="username" placeholder="请输入账号">
+    								<input type="text" id="username" name="username" placeholder="请输入账号" value="lililtest">
     							</td>
     						</tr>
     						<tr>
@@ -185,7 +185,7 @@
     								<label for="password">密码</label>
     							</td>
     							<td class="td_right">
-    								<input type="text" id="password" name="password" placeholder="请输入密码">
+    								<input type="text" id="password" name="password" placeholder="请输入密码" value="123qwert">
     							</td>
     						</tr>
     						<tr>
@@ -193,7 +193,7 @@
     								<label for="email">Email</label>
     							</td>
     							<td class="td_right">
-    								<input type="text" id="email" name="email" placeholder="请输入Email">
+    								<input type="text" id="email" name="email" placeholder="请输入Email" value="123@qwert.com">
     							</td>
     						</tr>
     						<tr>
@@ -201,7 +201,7 @@
     								<label for="name">姓名</label>
     							</td>
     							<td class="td_right">
-    								<input type="text" id="name" name="name" placeholder="请输入真实姓名">
+    								<input type="text" id="name" name="name" placeholder="请输入真实姓名" value="lil">
     							</td>
     						</tr>
     						<tr>
@@ -209,7 +209,7 @@
     								<label for="telephone">手机号</label>
     							</td>
     							<td class="td_right">
-    								<input type="text" id="telephone" name="telephone" placeholder="请输入您的手机号">
+    								<input type="text" id="telephone" name="telephone" placeholder="请输入您的手机号" value="13111111111">
     							</td>
     						</tr>
     						<tr>
@@ -217,8 +217,8 @@
     								<label for="sex">性别</label>
     							</td>
     							<td class="td_right gender">
-    								<input type="radio" id="sex" name="sex" value="男" checked> 男
-    								<input type="radio" name="sex" value="女"> 女
+    								<input type="radio" id="sex" name="sex" value="m" checked> m
+    								<input type="radio" name="sex" value="f"> f
     							</td>
     						</tr>
     						<tr>
