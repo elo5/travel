@@ -124,12 +124,13 @@ public class UserServlet extends BaseServlet{
             }
         }
 
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonStr = mapper.writeValueAsString(info);
-
-        //将json写回客户端
-        resp.setContentType("application/json; charset=utf-8");
-        resp.getWriter().write(jsonStr);
+//        ObjectMapper mapper = new ObjectMapper();
+//        String jsonStr = mapper.writeValueAsString(info);
+//
+//        //将json写回客户端
+//        resp.setContentType("application/json; charset=utf-8");
+//        resp.getWriter().write(jsonStr);
+        writeValue(resp, info);
     }
 
     /**
@@ -143,12 +144,13 @@ public class UserServlet extends BaseServlet{
 
         Object user = req.getSession().getAttribute("user");
 
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonStr = mapper.writeValueAsString(user);
-
-        //将json写回客户端
-        resp.setContentType("application/json; charset=utf-8");
-        resp.getWriter().write(jsonStr);
+//        ObjectMapper mapper = new ObjectMapper();
+//        String jsonStr = mapper.writeValueAsString(user);
+//
+//        //将json写回客户端
+//        resp.setContentType("application/json; charset=utf-8");
+//        resp.getWriter().write(jsonStr);
+        writeValue(resp, user);
 
     }
 

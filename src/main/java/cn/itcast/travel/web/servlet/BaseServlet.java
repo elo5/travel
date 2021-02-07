@@ -1,5 +1,7 @@
 package cn.itcast.travel.web.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +13,7 @@ import java.lang.reflect.Method;
 public class BaseServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("BaseServlet -- service");
+
         // 完成方法分发
         //1. 获取请求路径
         String uri = req.getRequestURI(); //  eg. :  /user/add
@@ -36,5 +38,31 @@ public class BaseServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 直接将传入的对象序列化为json，并且写回客户端
+     * @param resp
+     * @param obj
+     */
+    public void writeValue(HttpServletResponse resp, Object obj) throws IOException{
+//        ObjectMapper mapper = new ObjectMapper();
+//        String jsonStr = mapper.writeValueAsString(obj);
+//        //将json写回客户端
+//        resp.setContentType("application/json; charset=utf-8");
+//        resp.getWriter().write(jsonStr);
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        resp.setContentType("application/json; charset=utf-8");
+        mapper.writeValue(resp.getOutputStream(), obj);
+    }
+
+    /**
+     *
+     * @param obj
+     */
+    public void writeValueAsString(Object obj) {
+
     }
 }
