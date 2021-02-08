@@ -2,11 +2,14 @@ package cn.itcast.travel.service.impl;
 
 import cn.itcast.travel.dao.RouteDao;
 import cn.itcast.travel.dao.RouteImageDao;
+import cn.itcast.travel.dao.SellerDao;
 import cn.itcast.travel.dao.impl.RouteDaoImpl;
 import cn.itcast.travel.dao.impl.RouteImageDaoImpl;
+import cn.itcast.travel.dao.impl.SellerDaoImpl;
 import cn.itcast.travel.domain.PageBean;
 import cn.itcast.travel.domain.Route;
 import cn.itcast.travel.domain.RouteImg;
+import cn.itcast.travel.domain.Seller;
 import cn.itcast.travel.service.RouteService;
 
 import java.util.List;
@@ -15,6 +18,7 @@ public class RouteServiceImpl implements RouteService {
 
     private RouteDao routeDao = new RouteDaoImpl();
     private RouteImageDao routeImageDao = new RouteImageDaoImpl();
+    private SellerDao sellerDao = new SellerDaoImpl();
 
     /**
      * 根据类型分页查询
@@ -52,8 +56,8 @@ public class RouteServiceImpl implements RouteService {
         route.setRouteImgList(list);
 
         //3. 根据id，查询卖家信息
-
-
+        Seller seller = sellerDao.findById(Integer.parseInt(rid));
+        route.setSeller(seller);
 
         return route;
     }
