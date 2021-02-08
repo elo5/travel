@@ -69,5 +69,19 @@ public class RouteServlet extends BaseServlet{
         writeValue(resp,pageBean);
     }
 
+    /**
+     * 根据id查看详情（返回一条详情数据）
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void findOne(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String ridStr = req.getParameter("rid");
+        Route route = mRouteService.findOne(ridStr);
+        //序列化PageBean返回
+        writeValue(resp,route);
+    }
+
 
 }
