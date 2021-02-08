@@ -9,8 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/route/*")
 public class RouteServlet extends BaseServlet{
@@ -26,9 +30,21 @@ public class RouteServlet extends BaseServlet{
      */
     public void pageQuery(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
+        String s = null;
+        String data = "";
+        while((s = br.readLine()) != null) {
+            data = data.concat(s).concat("\n");
+        }
+        //data = data.substring(0,data.length()-1);
+        System.out.println(data);
+
         String currentPageStr = req.getParameter("currentPage");
         String pageSizeStr = req.getParameter("pageSize");
-        String cidStr = req.getParameter("cid");
+        String cidStr = "5";//req.getParameter("cid");
+
+        String rname = "%E8%A5%BF%E5%AE%89"; //req.getParameter("thename");
+//        rname = (rname == null || rname.length() == 0 ) ? "" : new String(rname.getBytes("iso-8859-1"), "utf-8");
 
         int cid = 0;
         if (cidStr != null && cidStr.length() > 0){
@@ -46,7 +62,7 @@ public class RouteServlet extends BaseServlet{
         }
 
         // 调用service查询PageBean对象
-        PageBean<Route> pageBean = mRouteService.pageQuery(cid,currentPage, pageSize);
+        PageBean<Route> pageBean = mRouteService.pageQuery(cid,currentPage, pageSize, rname);
 
         //序列化PageBean返回
         writeValue(resp,pageBean);
