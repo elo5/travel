@@ -9,32 +9,38 @@
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" href="css/search.css">
     <script src="js/jquery-3.3.1.js"></script>
-
+    <script src="js/getParameter.js"></script>
     <script>
 
         $(function (){
-            var search = location.search;
-            var cid = search.split("=")[1];
+            // var search = location.search;
+            // var cid = search.split("=")[1];
+
+            var cid = getParameter("cid");
+            var rname = getParameter("rname");
+            if (rname){
+                rname = window.decodeURIComponent(rname);
+            }
             //发送ajax请求，请求route/pageQuery方法
-            load(cid, 1);
+            load(cid, rname, 1); // TODO:
         });
 
-        function load(cid, currentPage){
+        function load(cid, rname, currentPage){
 
-            $.get("route/pageQuery", {cid:cid, currentPage:currentPage}, function (pageBean) {
+            $.get("route/pageQuery", {cid:cid, rname:rname, currentPage:currentPage}, function (pageBean) {
                 //解析数据，展示到页面上
                 //1 分页工具条
                 $("#totalPage").html(pageBean.totalPage);
                 $("#totalCount").html(pageBean.totalCount);
 
-                var pageList ='<li onclick="javascript:load(' + cid + ',' + 0 + ')"><a href="javascript:void(0)">首页</a></li>';
+                var pageList ='<li onclick="javascript:load(' + cid +  ',' + rname + ',' + 0 + ')"><a href="javascript:void(0)">首页</a></li>';
 
                 var prevPage = 1;
                 if (currentPage != 1){
                     prevPage = currentPage - 1;
                 }
 
-                pageList += '<li class="threeword" onclick="javascript:load(' + cid + ',' + prevPage + ')"><a href="javascript:void(0)">上一页</a></li>';
+                pageList += '<li class="threeword" onclick="javascript:load(' + cid + ',' + rname+ ',' + prevPage + ')"><a href="javascript:void(0)">上一页</a></li>';
 
                 // 定义开始位置begin,结束位置 end
                 var begin; // 开始位置
@@ -65,9 +71,9 @@
 
                 for (var i = begin; i<end; i++) {
                     if (i == pageBean.currentPage) {
-                        pageList += ' <li class="curPage" onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:void(0)">' + i + '</a></li>';
+                        pageList += ' <li class="curPage" onclick="javascript:load(' + cid + ',' + rname + ',' + i + ')"><a href="javascript:void(0)">' + i + '</a></li>';
                     } else {
-                        pageList += ' <li onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:void(0)">' + i + '</a></li>';
+                        pageList += ' <li onclick="javascript:load(' + cid + ',' + rname + ',' + i + ')"><a href="javascript:void(0)">' + i + '</a></li>';
                     }
                 }
 
@@ -75,8 +81,8 @@
                 if (currentPage < pageBean.totalPage){
                     nextPage++;
                 }
-                pageList += '<li class="threeword" onclick="javascript:load(' + cid + ',' + nextPage + ')"><a href="javascript:void(0)">下一页</a></li>';
-                pageList += '<li class="threeword" onclick="javascript:load(' + cid + ',' + pageBean.totalPage + ')"><a href="javascript:void(0)">末页</a></li>';
+                pageList += '<li class="threeword" onclick="javascript:load(' + cid + ',' + rname + ',' + nextPage + ')"><a href="javascript:void(0)">下一页</a></li>';
+                pageList += '<li class="threeword" onclick="javascript:load(' + cid + ',' + rname + ',' + pageBean.totalPage + ')"><a href="javascript:void(0)">末页</a></li>';
 
                 $("#pageNum").html(pageList);
 
