@@ -43,8 +43,9 @@ public class RouteServlet extends BaseServlet{
         String pageSizeStr = req.getParameter("pageSize");
         String cidStr = "5";//req.getParameter("cid");
 
-        String rname = "%E8%A5%BF%E5%AE%89"; //req.getParameter("thename");
+        String rname = "a"; //req.getParameter("thename");
 //        rname = (rname == null || rname.length() == 0 ) ? "" : new String(rname.getBytes("iso-8859-1"), "utf-8");
+//        rname = new String(rname.getBytes("iso-8859-1"), "utf-8");
 
         int cid = 0;
         if (cidStr != null && cidStr.length() > 0){
