@@ -56,7 +56,7 @@ public class RouteServiceImpl implements RouteService {
         route.setRouteImgList(list);
 
         //3. 根据id，查询卖家信息
-        Seller seller = sellerDao.findById(Integer.parseInt(rid));
+        Seller seller = sellerDao.findById(route.getSid());
         route.setSeller(seller);
 
         return route;
